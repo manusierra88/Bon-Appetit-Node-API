@@ -1,7 +1,7 @@
 
 const {Router}= require('express');
 
-const { crearProducto, obtenerProdcutos, modificarProducto, borrarProducto } = require('../controllers/prooducts');
+const { crearProducto, obtenerProdcutos, modificarProducto, borrarProducto, obtenerProductoPorId } = require('../controllers/prooducts');
 const { esAdmin } = require('../middlewares/validar-rol');
 const { validarCampos } = require('../middlewares/validarCampos');
 const validarJWT = require('../middlewares/validarJWT');
@@ -17,6 +17,8 @@ router.post('/',[
     crearProducto);
 
 router.get('/',obtenerProdcutos);
+
+router.get('/:id',[validarJWT,validarCampos],obtenerProductoPorId);
  
 router.put('/:id',[validarJWT,esAdmin,validarCampos],modificarProducto);
 

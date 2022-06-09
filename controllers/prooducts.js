@@ -30,6 +30,16 @@ const obtenerProdcutos= async (req, res) =>{
     );
 }
 
+const obtenerProductoPorId = async (req, res)=>{
+    const {id} = req.params;
+
+    const producto = await Producto.findById(id);
+
+    res.json(producto);
+
+
+}
+
 
 const modificarProducto = async (req = request, res ) =>{
     const id = req.params.id
@@ -59,5 +69,6 @@ module.exports = {
     crearProducto,
     modificarProducto,
     borrarProducto,
-    obtenerProdcutos
+    obtenerProdcutos,
+    obtenerProductoPorId
 }
