@@ -20,7 +20,7 @@ router.get('/',obtenerProdcutos);
 
 router.get('/:id',[validarJWT,validarCampos],obtenerProductoPorId);
  
-router.put('/:id',[validarJWT,esAdmin,validarCampos],modificarProducto);
+router.put('/:id',[],modificarProducto);
 
 router.delete('/:id',[validarJWT,esAdmin,validarCampos],borrarProducto);
 

@@ -40,13 +40,13 @@ class Server {
     }
 
     middlewares(){
-        const whiteList= ['http://localhost:3000']
+        
 
         this.app.use(express.static('public'));
 
         this.app.use(express.json());
 
-        this.app.use(cors({origin:whiteList}));
+        this.app.use(cors());
     }
 
 

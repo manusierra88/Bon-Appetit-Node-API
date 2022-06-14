@@ -43,24 +43,50 @@ const obtenerProductoPorId = async (req, res)=>{
 
 const modificarProducto = async (req = request, res ) =>{
     const id = req.params.id
-    const {...data}= req.body;
-    
-    const productoActualizado = await Producto.findByIdAndUpdate({id, data},{new:true});
+    const {nombre, precio, descripcion}= req.body;
 
-    res.status(201).json({
-        msg:'Producto actualizado correctamente',
-        productoActualizado
-    })
-}
+
+    try {
+        const producto = await Producto.findById(id);
+        if(!producto){
+            return res.status(404).json({
+                msg:'Producto no encontrado'
+            })
+        }
+
+        const productoActualizado = await Producto.findByIdAndUpdate(id, {nombre, precio, descripcion},{new:true});
+       
+        res.status(201).json({
+            msg:'Producto actualizado correctamente',
+            producto : productoActualizado
+        })
+    
+        
+    } catch (error) {
+        console.log(error);
+        res.json(error);
+        
+    }
+
+    
+    
+
+   }
 
 const borrarProducto = async (req, res) =>{
     const id = req.params.id;
-
-    const producto=  await Producto.findByIdAndDelete(id);
+    const producto = await Producto.findById(id);
+    if(!producto){
+        res.staus(404).json({
+            msg:'producto no econtrado'
+        })
+    }
+    await Producto.findByIdAndDelete(id);
     res.json({
-        msg: `El prdocuto ${producto} fue borrado exitosamente`
+        ok: true
     })
-}
+
+  }
 
 
 
