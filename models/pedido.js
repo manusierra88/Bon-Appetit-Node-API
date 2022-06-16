@@ -1,7 +1,9 @@
 const { Schema, model} = require('mongoose');
 
 const PedidoSchema = Schema({
-    
+    nombre:{
+        type: String
+    },
     producto:{
         type: String 
     },

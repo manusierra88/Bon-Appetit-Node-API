@@ -6,7 +6,7 @@ const Usuario = require('../models/user');
 
 const crearPedido = async (req, res) => {
 
-    const { email, producto, cantidad, telefono } = req.body;
+    const {nombre, email, telefono, producto, cantidad} = req.body;
 
     if (!telefono || telefono.length < 4) {
         return res.status(400).json({
@@ -25,7 +25,7 @@ const crearPedido = async (req, res) => {
         });
     }
 
-    const pedido = new Pedido({ email, producto, cantidad, telefono });
+    const pedido = new Pedido({ nombre, telefono, email, producto, cantidad });
 
     await pedido.save();
 
