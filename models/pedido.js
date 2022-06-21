@@ -4,11 +4,14 @@ const PedidoSchema = Schema({
     nombre:{
         type: String
     },
+    email:{
+        type: String
+    },
     producto:{
         type: String 
     },
     fechaPedio:{
-        type: Date,
+        type: String,
     },
     estado:{
         type: Boolean,

@@ -1,12 +1,11 @@
 
 const Pedido = require('../models/pedido');
-const Producto = require('../models/products');
-const Usuario = require('../models/user');
+
 
 
 const crearPedido = async (req, res) => {
 
-    const {nombre, email, telefono, producto, cantidad} = req.body;
+    const { nombre, email, telefono, producto, cantidad } = req.body;
 
     if (!telefono || telefono.length < 4) {
         return res.status(400).json({
@@ -24,6 +23,7 @@ const crearPedido = async (req, res) => {
             msg: 'La cantidad seleccionada no puede ser menor a 1'
         });
     }
+    
 
     const pedido = new Pedido({ nombre, telefono, email, producto, cantidad });
 
@@ -31,7 +31,7 @@ const crearPedido = async (req, res) => {
 
     res.status(200).json({
         msg: 'Pedido generado correctamente',
-        pedido
+        pedido,
     });
 
 }
@@ -39,9 +39,45 @@ const crearPedido = async (req, res) => {
 const obtenerPedidos = async (req, res) => {
     const [pedidos] = await Promise.all(
         [Pedido.find()]
-    ); 
+    );
     res.json(
-        {pedidos})
+        pedidos)
+}
+
+const editarPedido = async( req, res) =>{
+    const id = req.params.id
+
+    const pedido = await Pedido.findById(id);
+    if(!pedido){
+        res.json({
+            ok:false,
+            msg:'Pedido no encontrado en base de datos'
+        })
+    }
+
+    const pedidoListo = await Pedido.findByIdAndUpdate(id,{estado:false}, {new:true});
+    
+    res.json({
+        ok:true,
+        pedidoListo
+    })
+
+}
+
+const borrarPedido = async(req, res) => {
+    const id = req.params.id
+
+    const pedido = await Pedido.findById(id)
+
+    if(pedido){
+        await Pedido.findByIdAndDelete(id, {new:true})
+        res.json({msg:'pedido borrado'})
+    }else{
+        res.json({
+            ok:false,
+            msg: 'pedido no encontrado'
+        })
+    }
 }
 
 
@@ -49,4 +85,6 @@ const obtenerPedidos = async (req, res) => {
 module.exports = {
     crearPedido,
     obtenerPedidos,
+    editarPedido,
+    borrarPedido
 }
