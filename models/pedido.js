@@ -11,7 +11,7 @@ const PedidoSchema = Schema({
         type: String 
     },
     fechaPedio:{
-        type: String,
+        type: Date,
     },
     estado:{
         type: Boolean,
