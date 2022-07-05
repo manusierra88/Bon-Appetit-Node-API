@@ -12,6 +12,7 @@ const PedidoSchema = Schema({
     },
     fechaPedio:{
         type: Date,
+        default: Date.now()
     },
     estado:{
         type: Boolean,
