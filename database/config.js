@@ -5,7 +5,7 @@ const dbConnect = async () => {
 
     try {
 
-        await mongoose.connect('mongodb+srv://bon_apetit:2Ou6jXA9oiWC3jAT@clustercursonodejs.4cevt.mongodb.net/baDB', {
+        await mongoose.connect(process.env.MONGO_CNN, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
