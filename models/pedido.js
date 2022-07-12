@@ -10,10 +10,6 @@ const PedidoSchema = Schema({
     producto:{
         type: String 
     },
-    fechaPedio:{
-        type: Date,
-        default: Date.now()
-    },
     estado:{
         type: Boolean,
         default: true,
