@@ -57,6 +57,10 @@ class Server {
         this.app.use(this.productPath,require('../routes/products'));
         this.app.use(this.orderPath, require('../routes/pedidos'));
 
+        this.app.get('*', (req, res)=>{
+            res.sendFile(__dirname + '/public/index.html');
+        })
+
     }
 
 
